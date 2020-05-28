@@ -11,12 +11,12 @@ namespace Arms.Infrastructure
         {
         }
 
+        public DbSet<Assessment> Assessments { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new EmployeeEntityTypeConfiguration());
             modelBuilder.ApplyConfiguration(new EmployeeDetailEntityTypeConfiguration());
         }
-
-        public DbSet<Assessment> Assessments;
     }
 }
