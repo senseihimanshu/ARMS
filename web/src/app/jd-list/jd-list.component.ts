@@ -8,13 +8,13 @@ import {
   NgbModalRef,
   ModalDismissReasons,
 } from "@ng-bootstrap/ng-bootstrap";
+import { NgxSpinnerService } from "ngx-spinner";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { ModalComponent } from "src/app/reusable-components/modal/modal.component";
 import { HttpErrorResponse } from "@angular/common/http";
 import html2canvas from "html2canvas";
 import { JobService } from "../services/job.service";
 import * as jsPDF from "jspdf";
-import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-jd-list",
@@ -41,9 +41,7 @@ export class JdListComponent implements OnInit {
   }
 
   loadJds() {
-    this.spinnerService.show();
     return this.jobService.getAllJobs().subscribe((response: any) => {
-      this.spinnerService.hide();
       this.jobsList = response.payload.data;
     });
   }
