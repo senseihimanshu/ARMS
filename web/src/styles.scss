@@ -4004,10 +4004,10 @@ pre code {
 .table td {
   padding: 0.9375rem;
   vertical-align: top;
-  border-top: 1px solid #ebedf2;
+  border-top: 0px;
 }
 .table thead th {
-  vertical-align: bottom;
+  vertical-align: middle;
   border-bottom: 2px solid #ebedf2;
 }
 .table tbody + tbody {
@@ -16073,7 +16073,7 @@ code {
   width: 18px;
   height: 18px;
   border-radius: 2px;
-  border: solid #b66dff;
+  border: solid #F04F23;
   border-width: 2px;
   -webkit-transition: all;
   transition: all;
@@ -16101,14 +16101,7 @@ code {
   .form-check-label
   input[type="checkbox"]:checked
   + .input-helper:before {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#da8cff),
-    to(#9a55ff)
-  );
-  background: linear-gradient(to right, #da8cff, #9a55ff);
+  background-color: #fe7c96;
   border-width: 0;
 }
 .form-check
@@ -16493,7 +16486,7 @@ select.form-control {
   padding: 0.4375rem 0.75rem;
   border: 0;
   outline: 1px solid #ebedf2;
-  color: #c9c8c8;
+  // color: #c9c8c8;
 }
 select.form-control:focus {
   outline: 1px solid #ebedf2;

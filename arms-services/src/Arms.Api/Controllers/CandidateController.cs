@@ -16,7 +16,6 @@ namespace Arms.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Roles = "Admin,SuperAdministrator,Employee")]
     public class CandidateController : BaseController
     {
         public ArmsDbContext _context;

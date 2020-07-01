@@ -45,8 +45,8 @@ namespace Arms.Api.Controllers
             try
             {
                 Arms.Domain.Entities.Application dataFromDb = _context.Application.Include(x => x.Job).Include(x => x.Candidate).FirstOrDefault(application => application.CandidateId == candidateId && application.JobId == jdId);
-                dataFromDb.Resume = null;
-                var resume = _context.Resume.FirstOrDefault(c => c.ApplicationId == dataFromDb.Id);
+                
+                var resume = _context.Resume.FirstOrDefault(c => c.ApplicationId == dataFromDb.Id) != null? _context.Resume.FirstOrDefault(c => c.ApplicationId == dataFromDb.Id)?.Cv : null;
         
                 var data = (dataFromDb != null
                     ? new
@@ -61,7 +61,7 @@ namespace Arms.Api.Controllers
                             Email = dataFromDb.Candidate.Email,
                             Phone = dataFromDb.Candidate.Phone,
                             Nationality = dataFromDb.Candidate.nationality,
-                            Resume = resume.Cv
+                            Resume = resume
                         },
                         JobDescription = new
                         {
