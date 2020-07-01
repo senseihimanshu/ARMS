@@ -37,6 +37,7 @@
     "ng-circular-progress": "^1.0.1",
     "ng2-charts": "^2.3.2",
     "ng2-file-upload": "^1.4.0",
+    "ngx-spinner": "^9.0.2",
     "ngx-toaster": "^1.0.1",
     "progress-tracker": "^2.0.6",
     "puppeteer": "^3.0.2",
