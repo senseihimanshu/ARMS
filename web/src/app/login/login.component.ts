@@ -7,6 +7,7 @@ const GRAPH_ENDPOINT = "https://graph.microsoft.com/v1.0/me";
 
 import { HttpClient } from "@angular/common/http";
 import { LoginService } from "../services/login.service";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: "app-login",
@@ -26,8 +27,9 @@ export class LoginComponent implements OnInit {
     private http: HttpClient,
     private loginService: LoginService,
     private _router: Router,
-    private _env: EnvVarService
-  ) { }
+    private _env: EnvVarService,
+    private spinnerService: NgxSpinnerService
+  ) {}
 
   ngOnInit() {
     this.isIframe = window !== window.parent && !window.opener;
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
       }
     });
     this.authService.setLogger(
-      new Logger((logLevel, message, piiEnabled) => { }, {
+      new Logger((logLevel, message, piiEnabled) => {}, {
         correlationId: CryptoUtils.createNewGuid(),
         piiLoggingEnabled: false,
       })
@@ -74,27 +76,28 @@ export class LoginComponent implements OnInit {
     } else {
       let object = await this.authService.loginPopup();
     }
-
+    this.spinnerService.show();
     const idToken = window.localStorage.getItem("msal.idtoken");
-
     this.loginService.checkPermissions(idToken).subscribe(
       (res) => {
-        if (res != null) {
-          window.localStorage.setItem(
+        setTimeout(() => {
+          this.spinnerService.hide();
+          if (res != null) {
+            window.localStorage.setItem(
+              "Authorized",
+              `Bearer ${res.payload.data.authorized}`
+            );
+            let role = this.loginService.tokenDecoder().role;
 
-            "Authorized",
-            `Bearer ${res.payload.data.authorized}`
-          );
-          let role = this.loginService.tokenDecoder().role;
-
-          if (role == this._env.ADMIN) {
-            this._router.navigate(["/admin"]);
-          } else if (role == this._env.SUPERUSER) {
-            this._router.navigate(["/superuser"]);
-          } else if (role == this._env.EMPLOYEE) {
-            this._router.navigate(["/employee"]);
+            if (role == this._env.ADMIN) {
+              this._router.navigate(["/admin"]);
+            } else if (role == this._env.SUPERUSER) {
+              this._router.navigate(["/superuser"]);
+            } else if (role == this._env.EMPLOYEE) {
+              this._router.navigate(["/employee"]);
+            }
           }
-        }
+        }, 1000);
         this.message = res.payload.data.message;
       },
       (err) => {
