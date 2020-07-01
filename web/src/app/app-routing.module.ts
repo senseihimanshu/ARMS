@@ -1,3 +1,4 @@
+import { EmailListModalComponent } from './email-list-modal/email-list-modal.component';
 import { UpdateInterviewComponent } from "./update-interview/update-interview.component";
 import { UpdateCandidateComponent } from "./update-candidate/update-candidate.component";
 import { HrInterviewAssessementComponent } from "./hr-interview-assessement/hr-interview-assessement.component";
